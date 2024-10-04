@@ -10,6 +10,7 @@ output: html_document
 ```{r load-packages, message = FALSE, warning=FALSE}
 library(tidyverse)
 library(readxl)
+data1 <- read_csv("data/mismanaged-plastic-waste-per-capita.csv")
 ```
 
 
@@ -17,18 +18,29 @@ library(readxl)
 
 ```{r load-data, message = FALSE}
 # Member 2 (pair 1) write code to load File 1 data here:
-
+plastic_data_all <- data1
 
 
 # Member 4 (pair 2) write code to load File 2 data here:
+data2 <- read_csv2("data/per-capita-ocean-plastic-waste.txt")
+plastic_data_all <- data2 %>%
+  select(-name) %>%
+  left_join(plastic_data_all, by = "code")
 
 
 
 # Member 6 (pair 3) write code to load File 3 data here:
-
+data3 <- read_tsv("data/UN_country_population.tsv")
+plastic_data_all <- data3 %>%
+  select(-name) %>%
+  right_join(plastic_data_all, by = "code")
 
 
 # Member 1 (pair 1) write code to load File 4 data here:
+data4 <- read_excel("data/UN_country_region.xlsx")
+plastic_data_all <- data4 %>%
+  select(-name) %>%
+  right_join(plastic_data_all, by = "code")
 
 
 
@@ -61,7 +73,7 @@ library(readxl)
 
 ```{r print-data, message = FALSE}
 # Member 2 (pair 1) adds code here to view the first 10 rows of 'plastic_data_all'
-
+plastic_data_all %>% head(n = 10)
 
 
 ```
